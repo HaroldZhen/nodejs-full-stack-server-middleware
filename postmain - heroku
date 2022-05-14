@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "9e12e104-0a5a-4f70-9d49-f7054e80a143",
+		"name": "Week4 - Heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/posts/earliest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts/earliest",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"earliest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/posts/keyword/:word",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts/keyword/我",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"keyword",
+						"我"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"harold@gmail.com\",\n    \"name\": \"Harold\",\n    \"content\": \"Hello everyone\"\n}"
+				},
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELET ALL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELET ROW",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts/:id",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH(edit)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"Hi people\"\n}"
+				},
+				"url": {
+					"raw": "https://secret-basin-09481.herokuapp.com/posts/:id",
+					"protocol": "https",
+					"host": [
+						"secret-basin-09481",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "62651d6e4e016b9f4c9da3e7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
