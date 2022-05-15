@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "9e12e104-0a5a-4f70-9d49-f7054e80a143",
-		"name": "Week4 - Heroku",
+		"_postman_id": "8d121a71-831d-41c4-85e6-44614ca48a15",
+		"name": "Week5 - Heroku",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "/posts",
+			"name": "GET:Post",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -26,12 +26,12 @@
 			"response": []
 		},
 		{
-			"name": "/posts/earliest",
+			"name": "GET:Post (sort: createdAt)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts/earliest",
+					"raw": "https://secret-basin-09481.herokuapp.com/posts?timeSort=asc",
 					"protocol": "https",
 					"host": [
 						"secret-basin-09481",
@@ -39,20 +39,26 @@
 						"com"
 					],
 					"path": [
-						"posts",
-						"earliest"
+						"posts"
+					],
+					"query": [
+						{
+							"key": "timeSort",
+							"value": "asc",
+							"description": "asc, desc"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/posts/keyword/:word",
+			"name": "GET:Post (keyword)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts/keyword/我",
+					"raw": "https://secret-basin-09481.herokuapp.com/posts?q=Hello",
 					"protocol": "https",
 					"host": [
 						"secret-basin-09481",
@@ -60,16 +66,20 @@
 						"com"
 					],
 					"path": [
-						"posts",
-						"keyword",
-						"我"
+						"posts"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Hello"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "POST",
+			"name": "Update:Post",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -81,7 +91,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"harold@gmail.com\",\n    \"name\": \"Harold\",\n    \"content\": \"Hello everyone\"\n}"
+					"raw": "{\n    \"email\": \"harold@gmail.com\",\n    \"name\": \"Haroldxxxx\",\n    \"content\": \"Hi everyone\"\n}"
 				},
 				"url": {
 					"raw": "https://secret-basin-09481.herokuapp.com/posts",
@@ -99,7 +109,7 @@
 			"response": []
 		},
 		{
-			"name": "DELET ALL",
+			"name": "Delete:Posts",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -119,7 +129,7 @@
 			"response": []
 		},
 		{
-			"name": "DELET ROW",
+			"name": "Delete:Post/:id",
 			"request": {
 				"method": "DELETE",
 				"header": [
