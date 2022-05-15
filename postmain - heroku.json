@@ -1,202 +1,365 @@
 {
 	"info": {
-		"_postman_id": "8d121a71-831d-41c4-85e6-44614ca48a15",
-		"name": "Week5 - Heroku",
+		"_postman_id": "404c0f2d-7294-40e9-953e-644cd594e665",
+		"name": "Week6 - Heroku",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET:Post",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET:Post (sort: createdAt)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts?timeSort=asc",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts"
-					],
-					"query": [
-						{
-							"key": "timeSort",
-							"value": "asc",
-							"description": "asc, desc"
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get:User/Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/profile",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET:Post (keyword)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts?q=Hello",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts"
-					],
-					"query": [
-						{
-							"key": "q",
-							"value": "Hello"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update:Post",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json;charset=utf-8",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"harold@gmail.com\",\n    \"name\": \"Haroldxxxx\",\n    \"content\": \"Hi everyone\"\n}"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete:Posts",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete:Post/:id",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts/:id",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": null
+				{
+					"name": "Update:User/profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODEzMjAzNWYxZWIzZGNhNTAzMTQzMCIsImlhdCI6MTY1MjYzNDIzMSwiZXhwIjoxNjUyNjM3ODMxfQ.vvksx6d5G0inHo-UdJlnK_Bp8kbZ0l-8dmgqE2nLcNQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"TRay\",\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/profile",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PATCH(edit)",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json;charset=utf-8",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"content\": \"Hi people\"\n}"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://secret-basin-09481.herokuapp.com/posts/:id",
-					"protocol": "https",
-					"host": [
-						"secret-basin-09481",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"posts",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "62651d6e4e016b9f4c9da3e7"
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account\": \"harold@gmail.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/sign_in",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"account\": \"harold@gmail.com\",\n    \"name\": \"harold\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/sign_up",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"Haxrold\",\n    \"confirm_password\": \"Haxrold\"\n}"
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/update_password",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"update_password"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "/posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts(sort: createdAt)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts?timeSort=asc",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/posts(keyword)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts?q=Hello",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Hello"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"harold@gmail.com\",\n    \"name\": \"Harold\",\n    \"content\": \"Hello everyone\"\n}"
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELET ALL",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELET ROW",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/post/:id",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": " "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH(edit)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"Hi people\"\n}"
+						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/posts/:id",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62651d6e4e016b9f4c9da3e7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
