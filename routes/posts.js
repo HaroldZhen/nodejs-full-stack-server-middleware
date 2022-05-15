@@ -1,16 +1,20 @@
 const express = require('express')
 
 const router = express.Router()
-const PostsController = require('../controllers/postController')
+const MainController = require('../controllers/postController')
 const asyncErrorHandler = require('../middlewares/errorHandlers/asyncErrorHandler')
-const postCreateRequest = require('../middlewares/request/postCreateRequest')
-const postUpdateRequest = require('../middlewares/request/postUpdateRequest')
+const isAuth = require('../middlewares/auth/isAuth')
+const {
+  postCreateRequest,
+  postUpdateRequest
+} = require('../middlewares/request/postRequest')
 
 // GET: /posts/
-router.get('/', asyncErrorHandler(PostsController.getPosts))
-router.post('/',postCreateRequest, asyncErrorHandler(PostsController.createPost))
-router.delete('/', asyncErrorHandler(PostsController.deletePosts))
-router.patch('/:id',postUpdateRequest, asyncErrorHandler(PostsController.updatePost))
+router.use(isAuth)
+router.get('/', asyncErrorHandler(MainController.getPosts))
+router.post('/', postCreateRequest, asyncErrorHandler(MainController.createPost))
+router.delete('/', asyncErrorHandler(MainController.deletePosts))
+router.patch('/:id', postUpdateRequest, asyncErrorHandler(MainController.updatePost))
 // router.delete('/:id', asyncErrorHandler(PostsController.deletePost))
 
 module.exports = router

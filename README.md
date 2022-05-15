@@ -1,6 +1,6 @@
-web: https://secret-basin-09481.herokuapp.com/
+web: https://afternoon-badlands-76998.herokuapp.com/
 
-# Week5
+# Week6
 ## Backend:
-- heroku: secret-basin-09481. herokuapp.com
+- heroku: afternoon-badlands-76998 herokuapp.com
 - mongo: WEEK5-NODE-FULL-STACK

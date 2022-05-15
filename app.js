@@ -13,6 +13,7 @@ connectDB()
 const indexRouter = require('./routes/index')
 const postsRouter = require('./routes/posts')
 const postRouter = require('./routes/post')
+const userRouter = require('./routes/users')
 
 process.on('uncaughtException', err => {
   // 記錄錯誤下來，等到服務都處理完後，停掉該 process
@@ -35,6 +36,7 @@ app.use('/', indexRouter)
 app.use(cors(corsOptions))
 app.use('/posts', postsRouter)
 app.use('/post', postRouter)
+app.use('/users', userRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
