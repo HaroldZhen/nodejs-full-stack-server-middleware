@@ -11,7 +11,8 @@ const corsOptions = require('./configs/corsOptions')
 connectDB()
 
 const indexRouter = require('./routes/index')
-const postRouter = require('./routes/posts')
+const postsRouter = require('./routes/posts')
+const postRouter = require('./routes/post')
 
 process.on('uncaughtException', err => {
   // 記錄錯誤下來，等到服務都處理完後，停掉該 process
@@ -32,7 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use(cors(corsOptions))
-app.use('/posts', postRouter)
+app.use('/posts', postsRouter)
+app.use('/post', postRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -71,6 +73,8 @@ app.use((err, req, res, next) => {
   // eslint-disable-next-line no-param-reassign
   err.statusCode = err.statusCode || 500;
   if (process.env.NODE_ENV === 'dev') {
+    // eslint-disable-next-line no-param-reassign
+    console.error(err)
     return resErrorDev(err, res);
   }
   // production
