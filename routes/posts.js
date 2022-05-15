@@ -2,14 +2,15 @@ const express = require('express')
 
 const router = express.Router()
 const PostsController = require('../controllers/postController')
+const asyncErrorHandler = require('../middlewares/errorHandlers/asyncErrorHandler')
 
 // GET: /posts/
-router.get('/', PostsController.getPosts)
-router.get('/earliest', PostsController.getPostsEarliest)
-router.get('/keyword/:word', PostsController.getPostsKeyword)
-router.post('/', PostsController.createPost)
-router.delete('/', PostsController.deletePosts)
-router.delete('/:id', PostsController.deletePost)
-router.patch('/:id', PostsController.updatePost)
+router.get('/', asyncErrorHandler(PostsController.getPosts))
+router.get('/earliest', asyncErrorHandler(PostsController.getPostsEarliest))
+router.get('/keyword/:word', asyncErrorHandler(PostsController.getPostsKeyword))
+router.post('/', asyncErrorHandler(PostsController.createPost))
+router.delete('/', asyncErrorHandler(PostsController.deletePosts))
+router.delete('/:id', asyncErrorHandler(PostsController.deletePost))
+router.patch('/:id', asyncErrorHandler(PostsController.updatePost))
 
 module.exports = router
