@@ -12,7 +12,6 @@ connectDB()
 
 const indexRouter = require('./routes/index')
 const postsRouter = require('./routes/posts')
-const postRouter = require('./routes/post')
 const userRouter = require('./routes/users')
 
 process.on('uncaughtException', err => {
@@ -34,8 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use(cors(corsOptions))
-app.use('/posts', postsRouter)
-app.use('/post', postRouter)
+app.use(postsRouter)
 app.use('/users', userRouter)
 
 // catch 404 and forward to error handler

@@ -6,15 +6,17 @@ const asyncErrorHandler = require('../middlewares/errorHandlers/asyncErrorHandle
 const isAuth = require('../middlewares/auth/isAuth')
 const {
   postCreateRequest,
-  postUpdateRequest
+  postUpdateRequest,
+  postDeleteRequest,
 } = require('../middlewares/request/postRequest')
 
 // GET: /posts/
 router.use(isAuth)
-router.get('/', asyncErrorHandler(MainController.getPosts))
-router.post('/', postCreateRequest, asyncErrorHandler(MainController.createPost))
-router.delete('/', asyncErrorHandler(MainController.deletePosts))
-router.patch('/:id', postUpdateRequest, asyncErrorHandler(MainController.updatePost))
-// router.delete('/:id', asyncErrorHandler(PostsController.deletePost))
+router.get('/posts', asyncErrorHandler(MainController.getPosts))
+router.post('/posts', postCreateRequest, asyncErrorHandler(MainController.createPost))
+router.delete('/posts', asyncErrorHandler(MainController.deletePosts))
+router.patch('/posts/:id', postUpdateRequest, asyncErrorHandler(MainController.updatePost))
+router.delete('/post/:id', postDeleteRequest, asyncErrorHandler(MainController.deletePost))
+
 
 module.exports = router
