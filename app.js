@@ -10,9 +10,9 @@ const corsOptions = require('./configs/corsOptions')
 
 connectDB()
 
-const indexRouter = require('./routes/index')
-const postsRouter = require('./routes/posts')
-const userRouter = require('./routes/users')
+const indexRouter = require('./routes/indexRouter')
+const postsRouter = require('./routes/postsRouter')
+const userRouter = require('./routes/usersRouter')
 
 process.on('uncaughtException', err => {
   // 記錄錯誤下來，等到服務都處理完後，停掉該 process

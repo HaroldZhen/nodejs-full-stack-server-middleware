@@ -14,6 +14,8 @@ const isAuth = async (req, res, next) => {
     token = req.headers.authorization.split(' ').pop();
   }
 
+  console.log(token)
+
   if (!token) {
     return next(appError(401, '你尚未登入！', next));
   }

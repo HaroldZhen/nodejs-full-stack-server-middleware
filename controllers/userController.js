@@ -1,8 +1,24 @@
 // const _ = require('lodash')
+const { ImgurClient } = require('imgur')
+const multer = require('multer')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const path = require('path')
 const User = require('../models/UserModel')
 const appError = require('../middlewares/errorHandlers/appErrorHandler')
+
+const upload = multer({
+  limits: {
+    fileSize: 2*1024*1024,
+  },
+  fileFilter(req, file, cb) {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (ext !== '.jpg' && ext !== '.png' && ext !== '.jpeg') {
+      cb(new Error("檔案格式錯誤，僅限上傳 jpg、jpeg 與 png 格式。"));
+    }
+    cb(null, true);
+  },
+}).any();
 
 // 登入
 async function signIn(req, res, next) {
@@ -110,10 +126,28 @@ async function updateProfile(req, res) {
   })
 }
 
+// 更新upload Imgur
+async function uploadToImgur(req, res) {
+  upload(req, res, async () => {
+    const client = new ImgurClient({
+      clientId: process.env.IMGUR_CLIENTID,
+      clientSecret: process.env.IMGUR_CLIENT_SECRET,
+      refreshToken: process.env.IMGUR_REFRESH_TOKEN,
+    });
+    const response = await client.upload({
+      image: req.files[0].buffer.toString('base64'),
+      type: 'base64',
+      album: process.env.IMGUR_ALBUM_ID
+    });
+    res.send({ url: response.data.link });
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
   updatePassword,
   findProfile,
   updateProfile,
+  uploadToImgur,
 }
