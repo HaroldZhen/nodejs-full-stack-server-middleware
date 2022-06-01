@@ -1,8 +1,9 @@
 {
 	"info": {
 		"_postman_id": "404c0f2d-7294-40e9-953e-644cd594e665",
-		"name": "Week6 - Heroku",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"name": "Week7 - Heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3992779"
 	},
 	"item": [
 		{
@@ -30,18 +31,39 @@
 					"response": []
 				},
 				{
-					"name": "Update:User/profile",
+					"name": "Get:User/Upload",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODEzMjAzNWYxZWIzZGNhNTAzMTQzMCIsImlhdCI6MTY1MjYzNDIzMSwiZXhwIjoxNjUyNjM3ODMxfQ.vvksx6d5G0inHo-UdJlnK_Bp8kbZ0l-8dmgqE2nLcNQ",
-									"type": "string"
+									"key": "image",
+									"type": "file",
+									"src": "/Users/harold/Desktop/screenshot/Xnip2022-06-02_00-07-41.jpg"
 								}
 							]
 						},
+						"url": {
+							"raw": "https://afternoon-badlands-76998.herokuapp.com/users/upload",
+							"protocol": "https",
+							"host": [
+								"afternoon-badlands-76998",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update:User/profile",
+					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -72,6 +94,9 @@
 				{
 					"name": "SignIn",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -103,6 +128,9 @@
 				{
 					"name": "SignUp",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -360,6 +388,36 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGI0Yzc1ZjY1ODY4MTAzODY4Y2Q0ZiIsImlhdCI6MTY1NDEwMDU4OSwiZXhwIjoxNjU0MTA0MTg5fQ.KWFkgWEiTTYMQmOpn2JTtMir_CIqh26LfCIf_ikEiko",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
