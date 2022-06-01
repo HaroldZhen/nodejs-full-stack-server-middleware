@@ -22,7 +22,8 @@
     "morgan": "~1.9.1",
     "validator": "^13.7.0",
     "imgur": "2.2.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0 || ^8.2.0",
@@ -31,7 +32,6 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.16",
-    "prettier": "^2.6.2",
-    "tslib": "^2.4.0"
+    "prettier": "^2.6.2"
   }
 }
