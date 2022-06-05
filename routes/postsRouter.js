@@ -11,6 +11,7 @@ const {
 } = require('../middlewares/request/postRequest')
 
 // GET: /posts/
+router.get('/posts/:id', isAuth, asyncErrorHandler(MainController.getPost))
 router.get('/posts', isAuth, asyncErrorHandler(MainController.getPosts))
 router.post('/posts', isAuth, postCreateRequest, asyncErrorHandler(MainController.createPost))
 router.delete('/posts', isAuth, asyncErrorHandler(MainController.deletePosts))
