@@ -13,14 +13,14 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       select: false
     },
-    gender:{
+    gender: {
       type: String,
-      enum:['male','female'],
+      enum: ['male', 'female'],
       default: 'male',
     },
-    password:{
+    password: {
       type: String,
-      required: [true,'請輸入密碼'],
+      required: [true, '請輸入密碼'],
       minlength: 8,
       select: false
     },
@@ -33,7 +33,31 @@ const UserSchema = new mongoose.Schema(
       type: Date,
       default: '',
       select: true,
-    }
+    },
+    likes: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
+    followers: [
+      {
+        user: {type: mongoose.Schema.ObjectId, ref: 'User'},
+        createdAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
+    following: [
+      {
+        user: {type: mongoose.Schema.ObjectId, ref: 'User'},
+        createdAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ]
   },
   {
     versionKey: false

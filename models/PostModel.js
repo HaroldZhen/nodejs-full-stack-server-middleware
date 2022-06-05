@@ -18,10 +18,17 @@ const PostSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    likes: {
-      type: Number,
-      default: 0,
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref:"User",
+      required: [true, '貼文 ID 未填寫']
     },
+    likes: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
     createdAt: {
       type: Date,
       default: '',
@@ -32,10 +39,9 @@ const PostSchema = new mongoose.Schema(
       default: '',
       select: true,
     },
-  },
-  {
+  }, {
     versionKey: false,
-  },
+  }
 )
 
 const Post = mongoose.model('Post', PostSchema)

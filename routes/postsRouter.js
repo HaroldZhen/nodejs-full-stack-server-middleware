@@ -10,13 +10,19 @@ const {
   postDeleteRequest,
 } = require('../middlewares/request/postRequest')
 
-// GET: /posts/
+// Router: /posts
 router.get('/posts/:id', isAuth, asyncErrorHandler(MainController.getPost))
 router.get('/posts', isAuth, asyncErrorHandler(MainController.getPosts))
 router.post('/posts', isAuth, postCreateRequest, asyncErrorHandler(MainController.createPost))
-router.delete('/posts', isAuth, asyncErrorHandler(MainController.deletePosts))
+router.delete('/posts/all', isAuth, asyncErrorHandler(MainController.deletePosts))
 router.patch('/posts/:id', isAuth, postUpdateRequest, asyncErrorHandler(MainController.updatePost))
 router.delete('/post/:id', isAuth, postDeleteRequest, asyncErrorHandler(MainController.deletePost))
+router.post('/posts/:id/likes', isAuth, asyncErrorHandler(MainController.addLikes))
+router.delete('/posts/:id/likes', isAuth, asyncErrorHandler(MainController.delLikes))
+router.post('/posts/:id/comment', isAuth, asyncErrorHandler(MainController.addComment))
+router.delete('/posts/comment/:id', isAuth, asyncErrorHandler(MainController.delComment))
 
+// Router: /post
+router.get('/post/user/:id', isAuth, asyncErrorHandler(MainController.getPostByUser))
 
 module.exports = router

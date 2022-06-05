@@ -118,9 +118,25 @@ const userUpdatePasswordRequest = async (req, res, next) => {
   next()
 }
 
+const userFollowRequest = async (req, res, next) => {
+  if (req.params.id === req.user.id) {
+    next(appError(401, '您無法追蹤自己', next));
+  }
+  next()
+}
+
+const userUnFollowRequest = async (req, res, next) => {
+  if (req.params.id === req.user.id) {
+    next(appError(401,'您無法取消追蹤自己',next));
+  }
+  next()
+}
+
 module.exports = {
+  userUnFollowRequest,
   userSignUpRequest,
   userSignInRequest,
   userCreateRequest,
   userUpdatePasswordRequest,
+  userFollowRequest,
 }

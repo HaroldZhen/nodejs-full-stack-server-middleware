@@ -1,24 +1,12 @@
 // const _ = require('lodash')
-const { ImgurClient } = require('imgur')
-const multer = require('multer')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const path = require('path')
 const User = require('../models/UserModel')
 const appError = require('../middlewares/errorHandlers/appErrorHandler')
+const Post = require("../models/PostModel");
 
-const upload = multer({
-  limits: {
-    fileSize: 2*1024*1024,
-  },
-  fileFilter(req, file, cb) {
-    const ext = path.extname(file.originalname).toLowerCase();
-    if (ext !== '.jpg' && ext !== '.png' && ext !== '.jpeg') {
-      cb(new Error("檔案格式錯誤，僅限上傳 jpg、jpeg 與 png 格式。"));
-    }
-    cb(null, true);
-  },
-}).any();
+const STATUE_SUCCESS = 'success'
+
 
 // 登入
 async function signIn(req, res, next) {
@@ -41,10 +29,10 @@ async function signIn(req, res, next) {
   // 產生 JWT token
   const token = jwt.sign({
     id: user.get('_id')
-  }, process.env.JWT_SECRET, {expiresIn: 60 * 60});
+  }, process.env.JWT_SECRET, {expiresIn: 60 * 60 * 24});
 
   res.status(200).json({
-    statue: 'success',
+    status: STATUE_SUCCESS,
     data: {
       token,
       name: user.get('name'),
@@ -65,7 +53,7 @@ async function signUp(req, res) {
   })
 
   res.status(200).json({
-    statue: 'success',
+    status: STATUE_SUCCESS,
     data: {
       name,
       account,
@@ -86,7 +74,7 @@ async function updatePassword(req, res) {
     {runValidators: true})
 
   res.status(200).json({
-    statue: 'success',
+    status: STATUE_SUCCESS,
     data: {
       name: user.name,
       account: user.account,
@@ -101,7 +89,7 @@ async function findProfile(req, res) {
   const currentUser = await User.findById(user.get('_id')).select({account: 1, createdAt: 0, updatedAt: 0})
 
   res.status(200).json({
-    statue: 'success',
+    status: STATUE_SUCCESS,
     data: {
       currentUser
     },
@@ -121,26 +109,101 @@ async function updateProfile(req, res) {
     {runValidators: true})
 
   res.status(200).json({
-    statue: 'success',
+    status: STATUE_SUCCESS,
     data: user,
   })
 }
 
-// 更新upload Imgur
-async function uploadToImgur(req, res) {
-  upload(req, res, async () => {
-    const client = new ImgurClient({
-      clientId: process.env.IMGUR_CLIENTID,
-      clientSecret: process.env.IMGUR_CLIENT_SECRET,
-      refreshToken: process.env.IMGUR_REFRESH_TOKEN,
-    });
-    const response = await client.upload({
-      image: req.files[0].buffer.toString('base64'),
-      type: 'base64',
-      album: process.env.IMGUR_ALBUM_ID
-    });
-    res.send({ url: response.data.link });
+// following
+async function followingUser(req, res) {
+  const {user} = req
+
+  const currentUser = await User.findById(user.get('_id'))
+    .select({account: 1, createdAt: 0, updatedAt: 0})
+    .populate({
+      path: 'following.user', select: "name _id"
+    })
+
+  const following = currentUser.following.map((item) => ({
+    // eslint-disable-next-line no-underscore-dangle
+      id: item.user._id,
+      name: item.user.name,
+    }))
+
+  res.status(200).json({
+    status: STATUE_SUCCESS,
+    data: {
+      following
+    },
   })
+}
+
+// 追蹤
+async function followUser(req, res) {
+  const {id: targetUserId} = req.params
+  const {id: ownerUserId} = req.user
+  await User.updateOne(
+    {
+      _id: ownerUserId,
+      'following.user': {$ne: targetUserId}
+    },
+    {
+      $addToSet: {following: {user: targetUserId}}
+    }
+  );
+  await User.updateOne(
+    {
+      _id: targetUserId,
+      'followers.user': {$ne: ownerUserId}
+    },
+    {
+      $addToSet: {followers: {user: ownerUserId}}
+    }
+  );
+  res.status(200).json({
+    status: STATUE_SUCCESS,
+    message: '您已成功追蹤！'
+  });
+}
+
+// 取消追蹤
+async function unFollowUser(req, res) {
+  const {id: targetUserId} = req.params
+  const {id: ownerUserId} = req.user
+  await User.updateOne(
+    {
+      _id: ownerUserId,
+    },
+    {
+      $pull: {following: {user: targetUserId}}
+    }
+  );
+  await User.updateOne(
+    {
+      _id: targetUserId,
+    },
+    {
+      $pull: {followers: {user: ownerUserId}}
+    }
+  );
+  res.status(200).json({
+    status: STATUE_SUCCESS,
+    message: '您已成功取消追蹤！'
+  });
+}
+
+// 取得按讚文章列表
+async function postsLikesList(req, res) {
+  const likeList = await Post.find({
+    likes: { $in: [req.user.id] }
+  }).populate({
+    path:"user",
+    select:"name _id"
+  });
+  res.status(200).json({
+    status: 'success',
+    likeList
+  });
 }
 
 module.exports = {
@@ -149,5 +212,8 @@ module.exports = {
   updatePassword,
   findProfile,
   updateProfile,
-  uploadToImgur,
+  followingUser,
+  followUser,
+  unFollowUser,
+  postsLikesList,
 }
